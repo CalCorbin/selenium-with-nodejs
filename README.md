@@ -1,6 +1,7 @@
 # Selenium with Node JS
 
-This is a suite of selenium tests written with Node JS. These tests verify that https://www.thelioncrest.com is up and running.
+This is a suite of selenium tests written with Node JS. These tests verify that https://www.thelioncrest.com is up and running. The plan is to eventually organize
+this suite into the page object pattern.
 
 ## Instructions
 
@@ -10,7 +11,7 @@ The test suite is run via:
 ### Prerequisites
 
 * Node JS.
-* Chromedriver, these tests are currently only run on Chrome.
+* Chromedriver, these tests are currently only set to run on Chrome.
 * Selenium webdriver.
 * Mocha.
 * Chai.
@@ -18,7 +19,7 @@ The test suite is run via:
 ### Installing
 
 * Clone the directory.
-* Install the listed prerequisites via npm so they're in node_modules.
+* Install the listed prerequisites via npm so they're in `node_modules`.
 * Ensure you have chromedriver installed. The driver can be found at https://sites.google.com/a/chromium.org/chromedriver/downloads.
 
 ## Built With
