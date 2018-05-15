@@ -1,7 +1,6 @@
 # Selenium with Node JS
 
-This is a suite of selenium tests written with Node JS. These tests verify that https://www.thelioncrest.com is up and running. The plan is to eventually organize
-this suite into the page object pattern.
+This is a suite of selenium tests written with Node JS. These tests verify that https://www.thelioncrest.com is up and running.
 
 ## Instructions
 
