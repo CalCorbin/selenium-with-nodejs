@@ -1,60 +1,33 @@
-const {webdriver, Builder, By, Key, until, actions, tabs} = require('selenium-webdriver');
-const {expect} = require('chai');
-const {testingSetUp} = require('./page.js')
 const {navBarLocators} = require('./locators.js');
+const {testingSetUp, lioncrestHomepage, checkDirectorySync, chromeOptions, topNavBar} = require("./page.js");
+const {webdriver, Builder, By, Key, until, actions, tabs} = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+const fs = require('fs');
+
+checkDirectorySync('./logs');
+checkDirectorySync('./logs/screenshots');
 
 describe("Lioncrest Guild Website Test Suite", function() {
   this.timeout(180000); //Required for not receiving timeout error when starting tests.
-  it("Verify the website landing page loads.", async function() {
-    const driver = await new Builder().forBrowser("chrome").build();
-    await driver.get(testingSetUp.lioncrestUrl);
-    await driver.manage().window().maximize()
-    await driver.wait(until.titleIs("Lioncrest"), 20000);
-
-    //const driver = await new Builder().forBrowser("chrome").build();
-    await driver.get(testingSetUp.lioncrestUrl);
-    await driver.manage().window().maximize()
-
-    await driver.wait(until.titleIs("Lioncrest"), 20000);
-    await driver.wait(until.elementLocated(By.id(navBarLocators.navBarDivId)), 30000);
-
-    await driver.quit();
-  });
   it("Verify the navbar links work.", async function() {
-    //Loads the Browser instance.
-    const driver = await new Builder().forBrowser("chrome").build();
-    await driver.get(testingSetUp.lioncrestUrl);
-    await driver.manage().window().maximize()
-    await driver.wait(until.titleIs("Lioncrest"), 20000);
 
-    const navBar = await driver.findElement(By.id(navBarLocators.navBarDivId));
-    const rulesDropdown = await driver.findElement(By.id(navBarLocators.rulesDropdownId));
-    await rulesDropdown.click();
-    const codeOfConductLink = await driver.findElement(By.id(navBarLocators.codeOfConductLinkId));
-    const requirementsLink = await driver.findElement(By.id(navBarLocators.requirementsLinkId));
-    await codeOfConductLink.click();
-    await driver.wait(until.titleIs("Lioncrest | Code of Conduct"), 10000);
-    await driver.getTitle();
-    await function(title){
-      expect(title).equals("Lioncrest | Code of Conduct")};
-    await rulesDropdown.click();
-    await requirementsLink.click();
-    await driver.wait(until.titleIs("Lioncrest | Requirements"), 10000);
-    await driver.getTitle();
-    await function(title){
-      expect(title).equals("Lioncrest | Requirements")};
-    const informationDropdown = await driver.findElement(By.id(navBarLocators.informationDropdownId));
-    await informationDropdown.click();
-    const loreLink = await driver.findElement(By.id(navBarLocators.loreLinkId));
-    const meetTheOfficersLink = await driver.findElement(By.id(navBarLocators.meetTheOfficersLinkId));
-    await loreLink.click()
-    await driver.wait(until.titleIs("Lioncrest | Lore"), 10000);
-    await function(title){
-      expect(title).equals("Lioncrest | Lore")};
-    await meetTheOfficersLink.click()
-    await driver.wait(until.titleIs("Lioncrest | Meet the Officers"), 10000);
-    await function(title){
-      expect(title).equals("Lioncrest | Meet the Officers")};
+    const driver = new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
+    await driver.get(testingSetUp.lioncrestUrl);
+    await driver.manage().window().maximize();
+
+    await lioncrestHomepage.loadLioncrestHomepage(driver);
+    await topNavBar.clickRulesDropdown(driver);
+    await topNavBar.clickCodeOfConduct(driver);
+    await topNavBar.verifyCodeOfConductPageLoaded(driver);
+    await topNavBar.clickRulesDropdown(driver);
+    await topNavBar.clickRequirements(driver);
+    await topNavBar.verifyRequirementsPageLoaded(driver);
+    await topNavBar.clickInformationDropdown(driver);
+    await topNavBar.clickLore(driver);
+    await topNavBar.verifyLorePageLoaded(driver);
+    await topNavBar.clickInformationDropdown(driver);
+    await topNavBar.clickMeetTheOfficers(driver);
+    await topNavBar.verifyMeetTheOfficersPageLoaded(driver);
 
     await driver.quit();
   });
