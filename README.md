@@ -5,7 +5,7 @@ This is a suite of selenium tests written with Node JS. These tests verify that 
 ## Instructions
 
 The test suite is run via:
-`$ mocha completeTestSuite.py`
+`$ mocha lioncrestTestSuite.js`
 
 ### Prerequisites
 
